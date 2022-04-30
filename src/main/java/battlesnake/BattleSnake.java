@@ -44,6 +44,20 @@ public class BattleSnake {
     private void avoidWalls(Board board, Snake you, ArrayList<String> possibleMoves) {
         XYPoint head = you.getHead();
 
-        // TODO: Remove any directions from possibleMoves that would result in hitting a wall
+        int boardWidth = board.getWidth();
+        int boardHeight = board.getHeight();
+
+        if (head.getX() == 0) {
+            possibleMoves.remove("left");
+        }
+        if(head.getX() == boardWidth - 1) {
+            possibleMoves.remove("right");
+        }
+        if(head.getY() == 0) {
+            possibleMoves.remove("down");
+        }
+        if(head.getY() == boardHeight - 1) {
+            possibleMoves.remove("up");
+        }
     }
 }
