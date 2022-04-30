@@ -1,4 +1,4 @@
-package com.battlesnake.teals;
+package battlesnake;
 
 import java.util.ArrayList;
 import java.util.Arrays;

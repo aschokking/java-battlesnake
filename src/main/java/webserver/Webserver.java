@@ -1,18 +1,17 @@
-package com.battlesnake.teals;
+package webserver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import battlesnake.BattleSnake;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import static spark.Spark.port;
 import static spark.Spark.post;
