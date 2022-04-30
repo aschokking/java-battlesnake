@@ -32,10 +32,18 @@ public class BattleSnake {
     public String computeMove(Board board, Snake you) {
         ArrayList<String> possibleMoves = new ArrayList<String>(Arrays.asList("up", "down", "left", "right"));
         
+        avoidWalls(board, you, possibleMoves);
+
         // Choose a random direction to move in
         int choice = (int)(Math.random() * possibleMoves.size());
         String move = possibleMoves.get(choice);
 
         return move;
+    }
+
+    private void avoidWalls(Board board, Snake you, ArrayList<String> possibleMoves) {
+        XYPoint head = you.getHead();
+
+        // TODO: Remove any directions from possibleMoves that would result in hitting a wall
     }
 }
