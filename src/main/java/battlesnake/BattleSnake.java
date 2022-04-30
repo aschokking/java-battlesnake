@@ -47,6 +47,7 @@ public class BattleSnake {
         XYPoint head = you.getHead();
 
         // TODO: Remove any directions from possibleMoves that would result in hitting a wall
+        // This diagram will help you understand the board's coordinates: https://docs.battlesnake.com/references/api#board
     }
 
     // don't run into our own neck (the part of our body that's before the head)
