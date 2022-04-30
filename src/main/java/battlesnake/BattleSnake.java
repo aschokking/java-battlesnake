@@ -33,6 +33,7 @@ public class BattleSnake {
         ArrayList<String> possibleMoves = new ArrayList<String>(Arrays.asList("up", "down", "left", "right"));
         
         avoidWalls(board, you, possibleMoves);
+        avoidNeck(you, possibleMoves);
 
         // Choose a random direction to move in
         int choice = (int)(Math.random() * possibleMoves.size());
@@ -59,5 +60,25 @@ public class BattleSnake {
         if(head.getY() == boardHeight - 1) {
             possibleMoves.remove("up");
         }
+    }
+
+    private void avoidNeck(Snake you, ArrayList<String> possibleMoves) {
+        XYPoint head = you.getHead();
+
+        XYPoint neck = you.getBody()[1];
+
+        if (head.getX() == neck.getX()) {
+            if (head.getY() < neck.getY()) {
+                possibleMoves.remove("up");
+            } else {
+                possibleMoves.remove("down");
+            }
+        } else {
+            if (head.getX() < neck.getX()) {
+                possibleMoves.remove("right");
+            } else {
+                possibleMoves.remove("left");
+            }
+        }        
     }
 }
