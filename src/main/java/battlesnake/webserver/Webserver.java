@@ -1,4 +1,4 @@
-package webserver;
+package battlesnake.webserver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import battlesnake.BattleSnake;
+import battlesnake.Board;
+import battlesnake.Snake;
+import battlesnake.XYPoint;
 import spark.Request;
 import spark.Response;
 
@@ -150,25 +153,56 @@ public class Webserver {
                 LOG.error("Error parsing payload", e);
             }
 
-            /*
-             * Example how to retrieve data from the request payload:
-             * 
-             * String gameId = moveRequest.get("game").get("id").asText();
-             * 
-             * int height = moveRequest.get("board").get("height").asInt();
-             * 
-             */
+            Board board = parseBoard(moveRequest.get("board"));
+            Snake you = parseSnake(moveRequest.get("you"));
 
-            JsonNode head = moveRequest.get("you").get("head");
-            JsonNode body = moveRequest.get("you").get("body");
-
-            String move = snake.computeMove();
+            String move = snake.computeMove(board, you);
 
             LOG.info("MOVE {}", move);
 
             Map<String, String> response = new HashMap<>();
             response.put("move", move);
             return response;
+        }
+
+        public static Board parseBoard(JsonNode jsonBoard) {
+            Snake[] snakes = new Snake[jsonBoard.get("snakes").size()];
+            int i = 0;
+            for (JsonNode jsonSnake : jsonBoard.get("snakes")) {
+                snakes[i] = parseSnake(jsonSnake);
+            }
+            return new Board(
+                jsonBoard.get("height").asInt(), 
+                jsonBoard.get("width").asInt(), 
+                parseXYPoints(jsonBoard.get("food")),
+                parseXYPoints(jsonBoard.get("hazards")), 
+                snakes
+            );
+        }
+
+        public static Snake parseSnake(JsonNode jsonSnake) {
+            Snake snake = new Snake(
+                jsonSnake.get("id").asText(),
+                jsonSnake.get("health").asInt(),
+                parseXYPoints(jsonSnake.get("body")),
+                parseXYPoint(jsonSnake.get("head")),
+                jsonSnake.get("length").asInt()
+            );
+            return snake;
+        }
+
+        public static XYPoint[] parseXYPoints(JsonNode jsonPoints) {
+            XYPoint[] points = new XYPoint[jsonPoints.size()];
+            int i = 0;
+            for (JsonNode point : jsonPoints) {
+                points[i] = parseXYPoint(point);
+                i++;
+            }
+            return points;
+        }
+
+        public static XYPoint parseXYPoint(JsonNode jsonPoint) {
+            return new XYPoint(jsonPoint.get("x").asInt(), jsonPoint.get("y").asInt());
         }
 
         /**
