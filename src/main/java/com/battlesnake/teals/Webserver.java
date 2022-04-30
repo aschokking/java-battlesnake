@@ -1,4 +1,4 @@
-package com.battlesnake.starter;
+package com.battlesnake.teals;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -24,10 +24,11 @@ import static spark.Spark.get;
  * For instructions see
  * https://github.com/BattlesnakeOfficial/starter-snake-java/README.md
  */
-public class Snake {
+public class Webserver {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
     private static final Handler HANDLER = new Handler();
-    private static final Logger LOG = LoggerFactory.getLogger(Snake.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Webserver.class);
+    private static final BattleSnake snake = new BattleSnake();
 
     /**
      * Main entry point.
@@ -104,10 +105,10 @@ public class Snake {
         public Map<String, String> index() {
             Map<String, String> response = new HashMap<>();
             response.put("apiversion", "1");
-            response.put("author", ""); // TODO: Your Battlesnake Username
-            response.put("color", "#888888"); // TODO: Personalize
-            response.put("head", "default"); // TODO: Personalize
-            response.put("tail", "default"); // TODO: Personalize
+            response.put("author", snake.getAuthor());
+            response.put("color", snake.getColor());
+            response.put("head", snake.getHead());
+            response.put("tail", snake.getTail());
             return response;
         }
 
@@ -162,59 +163,13 @@ public class Snake {
             JsonNode head = moveRequest.get("you").get("head");
             JsonNode body = moveRequest.get("you").get("body");
 
-            ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-
-            // Don't allow your Battlesnake to move back in on it's own neck
-            avoidMyNeck(head, body, possibleMoves);
-
-            // TODO: Using information from 'moveRequest', find the edges of the board and
-            // don't
-            // let your Battlesnake move beyond them board_height = ? board_width = ?
-
-            // TODO Using information from 'moveRequest', don't let your Battlesnake pick a
-            // move
-            // that would hit its own body
-
-            // TODO: Using information from 'moveRequest', don't let your Battlesnake pick a
-            // move
-            // that would collide with another Battlesnake
-
-            // TODO: Using information from 'moveRequest', make your Battlesnake move
-            // towards a
-            // piece of food on the board
-
-            // Choose a random direction to move in
-            final int choice = new Random().nextInt(possibleMoves.size());
-            final String move = possibleMoves.get(choice);
+            String move = snake.computeMove();
 
             LOG.info("MOVE {}", move);
 
             Map<String, String> response = new HashMap<>();
             response.put("move", move);
             return response;
-        }
-
-        /**
-         * Remove the 'neck' direction from the list of possible moves
-         * 
-         * @param head          JsonNode of the head position e.g. {"x": 0, "y": 0}
-         * @param body          JsonNode of x/y coordinates for every segment of a
-         *                      Battlesnake. e.g. [ {"x": 0, "y": 0}, {"x": 1, "y": 0},
-         *                      {"x": 2, "y": 0} ]
-         * @param possibleMoves ArrayList of String. Moves to pick from.
-         */
-        public void avoidMyNeck(JsonNode head, JsonNode body, ArrayList<String> possibleMoves) {
-            JsonNode neck = body.get(1);
-
-            if (neck.get("x").asInt() < head.get("x").asInt()) {
-                possibleMoves.remove("left");
-            } else if (neck.get("x").asInt() > head.get("x").asInt()) {
-                possibleMoves.remove("right");
-            } else if (neck.get("y").asInt() < head.get("y").asInt()) {
-                possibleMoves.remove("down");
-            } else if (neck.get("y").asInt() > head.get("y").asInt()) {
-                possibleMoves.remove("up");
-            }
         }
 
         /**

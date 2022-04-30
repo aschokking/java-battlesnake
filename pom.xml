@@ -52,7 +52,7 @@
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <argument>com.battlesnake.starter.Snake</argument>
+                        <argument>com.battlesnake.teals.Webserver</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -85,7 +85,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.battlesnake.starter.Snake
+                                        com.battlesnake.teals.Webserver
                                     </mainClass>
                                 </manifest>
                             </archive>
