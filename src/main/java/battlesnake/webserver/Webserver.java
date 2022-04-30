@@ -148,7 +148,8 @@ public class Webserver {
         public Map<String, String> move(JsonNode moveRequest) {
 
             try {
-                LOG.info("Data: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest));
+                LOG.info("Board: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest.get("board")));
+                LOG.info("You: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest.get("you")));
             } catch (JsonProcessingException e) {
                 LOG.error("Error parsing payload", e);
             }

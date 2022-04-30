@@ -14,7 +14,7 @@ public class BattleSnake {
 
     public String getColor() {
         // TODO: Customize
-        return "#888888";
+        return "#E800FF";
     }
 
     public String getHead() {

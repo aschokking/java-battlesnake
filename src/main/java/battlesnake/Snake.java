@@ -15,4 +15,23 @@ public class Snake {
         this.length = length;
     }
 
+    public String id() {
+        return id;
+    }
+
+    public int health() {
+        return health;
+    }
+
+    public XYPoint[] body() {
+        return body;
+    }
+
+    public XYPoint head() {
+        return head;
+    }
+
+    public int length() {
+        return length;
+    }
 }
