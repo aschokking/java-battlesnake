@@ -1,5 +1,7 @@
 package battlesnake;
 
+// THIS IS THE MAIN FILE YOU NEED TO IMPLEMENT YOUR SNAKE AI IN
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,34 +11,34 @@ public class BattleSnake {
     
     public String getAuthor() {
         // TODO: Customize
-        return "YOUR NAME HERE";
+        return "YOUR NAME";
     }
 
     public String getColor() {
         // TODO: Customize
-        // hex color codes are in the form #RRGGBB
-        return "#E800FF";
+        return "#FF00FF";
     }
 
     public String getHead() {
         // TODO: Customize
-        return "dead";
+        return "default";
     }
 
     public String getTail() {
         // TODO: Customize
-        return "sharp";
+        return "default";
     }
 
     // this is the primary method that determines what your snake does each turn.
     // should return a string that's one of "up", "down", "left", "right"
     public String computeMove(Board board, Snake you) {
+        // create an ArrayList that starts with all 4 possible moves in it. 
         ArrayList<String> possibleMoves = new ArrayList<String>(Arrays.asList("up", "down", "left", "right"));
         
         avoidWalls(board, you, possibleMoves);
         avoidNeck(you, possibleMoves);
 
-        // Choose a random direction to move in
+        // Choose a random direction to move in from the remaining possibleMoves
         int choice = (int)(Math.random() * possibleMoves.size());
         String move = possibleMoves.get(choice);
 

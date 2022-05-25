@@ -1,6 +1,10 @@
 package battlesnake;
 
+// YOU DONT NEED TO MODIFY THIS FILE
+
 public class Board {
+    // these fields are described in the api documentation:
+    // https://docs.battlesnake.com/references/api
     private final int height;
     private final int width;
     private final XYPoint[] food;
@@ -33,5 +37,14 @@ public class Board {
 
     public Snake[] getSnakes() {
         return snakes;
+    }
+
+    public String toString() {
+        String result = "Board: height=" + height + ", width=" + width;
+        for(Snake snake: snakes) {
+            result += "\n\t" + snake.toString();
+        }
+
+        return result;
     }
 }

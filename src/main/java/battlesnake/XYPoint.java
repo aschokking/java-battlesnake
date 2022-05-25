@@ -1,5 +1,7 @@
 package battlesnake;
 
+// YOU DONT NEED TO MODIFY THIS FILE
+
 public class XYPoint {
     private final int x, y;
 

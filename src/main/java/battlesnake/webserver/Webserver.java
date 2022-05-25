@@ -1,5 +1,7 @@
 package battlesnake.webserver;
 
+// YOU DONT NEED TO MODIFY THIS FILE
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,12 +22,7 @@ import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.get;
 
-/**
- * This is a simple Battlesnake server written in Java.
- * 
- * For instructions see
- * https://github.com/BattlesnakeOfficial/starter-snake-java/README.md
- */
+
 public class Webserver {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
     private static final Handler HANDLER = new Handler();
@@ -40,10 +37,10 @@ public class Webserver {
     public static void main(String[] args) {
         String port = System.getProperty("PORT");
         if (port == null) {
-            LOG.info("Using default port: {}", port);
+            System.out.println("Using default port: " + port);
             port = "8080";
         } else {
-            LOG.info("Found system provided port: {}", port);
+            System.out.println("Found system provided port: " + port);
         }
         port(Integer.parseInt(port));
         get("/", HANDLER::process, JSON_MAPPER::writeValueAsString);
@@ -73,7 +70,7 @@ public class Webserver {
             try {
                 JsonNode parsedRequest = JSON_MAPPER.readTree(req.body());
                 String uri = req.uri();
-                LOG.info("{} called with: {}", uri, req.body());
+                LOG.debug("{} called with: {}", uri, req.body());
                 Map<String, String> snakeResponse;
                 if (uri.equals("/")) {
                     snakeResponse = index();
@@ -87,7 +84,7 @@ public class Webserver {
                     throw new IllegalAccessError("Strange call made to the snake: " + uri);
                 }
 
-                LOG.info("Responding with: {}", JSON_MAPPER.writeValueAsString(snakeResponse));
+                LOG.debug("Responding with: {}", JSON_MAPPER.writeValueAsString(snakeResponse));
 
                 return snakeResponse;
             } catch (JsonProcessingException e) {
@@ -124,7 +121,7 @@ public class Webserver {
          * @return responses back to the engine are ignored.
          */
         public Map<String, String> start(JsonNode startRequest) {
-            LOG.info("START");
+            System.out.println("\n****** Match starting ******\n");
             return EMPTY;
         }
 
@@ -146,20 +143,14 @@ public class Webserver {
          *         make. One of "up", "down", "left" or "right".
          */
         public Map<String, String> move(JsonNode moveRequest) {
-
-            try {
-                LOG.info("Board: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest.get("board")));
-                LOG.info("You: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest.get("you")));
-            } catch (JsonProcessingException e) {
-                LOG.error("Error parsing payload", e);
-            }
-
             Board board = parseBoard(moveRequest.get("board"));
             Snake you = parseSnake(moveRequest.get("you"));
 
+            System.out.println(board);
+
             String move = snake.computeMove(board, you);
 
-            LOG.info("MOVE {}", move);
+            System.out.println("Responding with move: " + move);
 
             Map<String, String> response = new HashMap<>();
             response.put("move", move);
@@ -171,6 +162,7 @@ public class Webserver {
             int i = 0;
             for (JsonNode jsonSnake : jsonBoard.get("snakes")) {
                 snakes[i] = parseSnake(jsonSnake);
+                i++;
             }
             return new Board(
                 jsonBoard.get("height").asInt(), 
@@ -184,6 +176,7 @@ public class Webserver {
         public static Snake parseSnake(JsonNode jsonSnake) {
             Snake snake = new Snake(
                 jsonSnake.get("id").asText(),
+                jsonSnake.get("name").asText(),
                 jsonSnake.get("health").asInt(),
                 parseXYPoints(jsonSnake.get("body")),
                 parseXYPoint(jsonSnake.get("head")),
@@ -217,7 +210,7 @@ public class Webserver {
          * @return responses back to the engine are ignored.
          */
         public Map<String, String> end(JsonNode endRequest) {
-            LOG.info("END");
+            System.out.println("\n****** Match ended ******\n");
             return EMPTY;
         }
     }
