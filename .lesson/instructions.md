@@ -27,7 +27,7 @@ Our out of the box snake here is very dumb and will mindlessly slam into walls (
   * stopping + starting your snake server here in replit (big button at the top of the screen)
   * retry the avoid walls challenge on battlesnakes.com and you should see your customizations reflected in your snake
 * Now it's time to actually start avoiding walls! Back in src/main/java/battlesnake/BattleSnake.java `computeMove()` is the primary method that determines what your snake does every round of the game. It's given the state of the world and asked to return what direction your snake should move in `"up", "down", "left", "right"`
-* We've given you some starter code to help get you going with avoiding walls. Implement the `avoidWalls()` and `avoidNeck()` methods. When those are working your snake should pass the avoid walls challenge.
+* We've given you some starter code to help get you going with this first challenge. Implement the `avoidWalls()` and `avoidNeck()` methods. When those are working your snake should pass the avoid walls challenge. The diagram at https://docs.battlesnake.com/references/api#board will be helpful for knowing how the board is laid out.
 
 ## Submitting
 
