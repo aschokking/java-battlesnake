@@ -6,13 +6,13 @@
 * Vist https://play.battlesnake.com/register/ to create a new account (if you already have a github.com account you can use that, otherwise just create a new username/password account)
 * Run your code in replit here to start the your webserver (big green button on top of the screen)
   * If it started successfully you should see a browser window on the right side of your screen. The URL of this mini window at the top of the page is what you'll need below when registering your snake. This can take a few minutes the first time you run your snake server in a session.
-  * The url you want should look something like https://{challenge name}-{your username}.easton-teals-ap-cs-2021-2022.repl.co
+  * The url you want should look something like https://blah-{your username}.blah.repl.co
 * Register a new battlensnake by visiting https://play.battlesnake.com/account/snakes/create/
   * Give your battlesnake a name, this is what will be shown to other players in the game
-  * For the URL, copy in the value from replit from a few steps ago (the one that ended in `.easton-teals-ap-cs-2021-2022.repl.co`)
+  * For the URL, copy in the value from replit from a few steps ago (the one that ended in `.repl.co`)
   * The other fields you can leave alone, just click Save
 
-## Episode 1: Avoid walls
+## Challenge 1: Avoid walls
 
 * Visit https://play.battlesnake.com/challenges/ and click "Attempt" on the first Avoid Walls challenge.
 * This will pop up a dialog with a dropdown of your battlesnake(s), pick the snake you created and select "Start challenge game"
@@ -32,4 +32,4 @@ Our out of the box snake here is very dumb and will mindlessly slam into walls (
 ## Submitting
 
 * When you're done, push the 'submit' button here in replit in the upper-right corner.
-  * Then in Schoology, submit a gif showing your snake passing the challenge! There's a `view gif` link on the battlensnake avoid walls challenge page you can use to get a gif of your snake like this: https://exporter.battlesnake.com/games/cfba9b38-3cc2-401b-b607-aa65693d2796/gif
+  * Include a link to a gif showing your snake passing the challenge! There's a `view gif` link on the battlensnake avoid walls challenge page you can use to get a gif of your snake like this: https://exporter.battlesnake.com/games/cfba9b38-3cc2-401b-b607-aa65693d2796/gif
