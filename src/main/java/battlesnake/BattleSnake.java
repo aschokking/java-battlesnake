@@ -14,17 +14,18 @@ public class BattleSnake {
 
     public String getColor() {
         // TODO: Customize
+        // hex color codes are in the form #RRGGBB
         return "#E800FF";
     }
 
     public String getHead() {
         // TODO: Customize
-        return "default";
+        return "dead";
     }
 
     public String getTail() {
         // TODO: Customize
-        return "default";
+        return "sharp";
     }
 
     // this is the primary method that determines what your snake does each turn.
